@@ -1,0 +1,5 @@
+-v:minimal
+-MaxCPUCount
+-NodeReuse:false
+-Property:NuGetInteractive=True
+-IgnoreProjectExtensions:.sln

@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net472;netcoreapp2.1;netstandard2.0</TargetFrameworks>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+
+  <ItemGroup>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="OmniSharp.Abstractions" />
+    <PackageReference Include="OmniSharp.Roslyn" />
+    <PackageReference Include="OmniSharp.Shared" />
+  </ItemGroup>
+
+</Project>

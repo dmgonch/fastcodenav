@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- This targets file is included by Microsoft.Common.targets and is therefore included in each *proj file -->
+<Project>
+  <!-- Lets us use a single Packages.props to manage package versions in one place.
+       https://github.com/Microsoft/MSBuildSdks/tree/master/src/CentralPackageVersions -->
+  <Sdk Name="Microsoft.Build.CentralPackageVersions" />
+</Project>

@@ -14,11 +14,13 @@ namespace OmniSharp.FastCodeNavPlugin
         public Uri ProjectUri { get; }
         public string ProjectName { get; }
         public string RepoName { get; }
+        public RepoSearchProviderType SearchProviderType { get; }
 
-        private RepoInfo(string rootDir, Uri projectUri, string projectName, string repoName)
+        private RepoInfo(string rootDir, RepoSearchProviderType searchProviderType, Uri projectUri, string projectName, string repoName)
         {
             RootDir = rootDir;
-            ProjectUri = ProjectUri;
+            SearchProviderType = searchProviderType;
+            ProjectUri = projectUri;
             ProjectName = projectName;
             RepoName = repoName;
         }
@@ -37,7 +39,7 @@ namespace OmniSharp.FastCodeNavPlugin
                 return false;
             }
 
-            repoInfo = new RepoInfo(repoRoot, projectUri, projectName, repoName);
+            repoInfo = new RepoInfo(repoRoot, RepoSearchProviderType.AzureDevOps, projectUri, projectName, repoName);
             return true;
         }
 
@@ -82,7 +84,7 @@ namespace OmniSharp.FastCodeNavPlugin
             projectName = match.Groups["project"].Success ? match.Groups["project"].Value :
                 (!string.IsNullOrEmpty(collection_or_project) && !collection_or_project.Equals("DefaultCollection") ? collection_or_project : repoName);
 
-            projectUri = new Uri($"https://{account}.{domain}/{projectName}");
+            projectUri = new Uri($"https://{account}.{domain}/{projectName}", UriKind.Absolute);
             return true;
         }
     }

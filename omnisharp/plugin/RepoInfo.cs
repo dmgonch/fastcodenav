@@ -8,7 +8,7 @@ namespace OmniSharp.FastCodeNavPlugin
     internal class RepoInfo
     {
         private static readonly Regex AzureDevOpsUriRegex = new Regex(
-            @"(?ix)^https://(?<account>.+)\.(?<domain>visualstudio\.com|azure.com)/(?<collection_or_project>[^/]+)(/(?<project>.+))?/_git/(?<optimization>_full/|_optimized/)?(?<repo>.+)$", RegexOptions.Compiled);
+            @"(?ix)^https://(?<account>.+)\.(?<domain>visualstudio\.com|azure.com)/(?<collection>[^/]+)(/(?<project>.+))?/_git/(?<optimization>_full/|_optimized/)?(?<repo>.+)$", RegexOptions.Compiled);
 
         public string RootDir { get; }
         public Uri ProjectUri { get; }
@@ -76,16 +76,22 @@ namespace OmniSharp.FastCodeNavPlugin
                 return false;
             }
 
-            string account = match.Groups["account"].Value;
-            string domain = match.Groups["domain"].Value;
-            repoName = match.Groups["repo"].Value.TrimEnd('/');
+            string account = GetMatchValue(match, "account");
+            string domain = GetMatchValue(match, "domain");
+            repoName = GetMatchValue(match, "repo").TrimEnd('/');
+            string collectionValue = GetMatchValue(match, "collection");    // May be collection or project name
+            string projectValue = GetMatchValue(match, "project");  // May be omitted in the Uri
 
-            string collection_or_project = match.Groups["collection_or_project"].Value;
-            projectName = match.Groups["project"].Success ? match.Groups["project"].Value :
-                (!string.IsNullOrEmpty(collection_or_project) && !collection_or_project.Equals("DefaultCollection") ? collection_or_project : repoName);
+            projectName = !string.IsNullOrEmpty(projectValue) ? projectValue : !collectionValue.Equals("DefaultCollection") ? collectionValue : repoName;
+            string collectionName = !string.IsNullOrEmpty(projectValue) ? collectionValue : string.Empty;
 
-            projectUri = new Uri($"https://{account}.{domain}/{projectName}", UriKind.Absolute);
+            projectUri = new Uri($"https://{account}.{domain}/{collectionName}", UriKind.Absolute);
             return true;
+        }
+
+        private static string GetMatchValue(Match match, string group)
+        {
+            return match.Groups[group].Success ? match.Groups[group].Value : string.Empty;
         }
     }
 }

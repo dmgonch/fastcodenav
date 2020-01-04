@@ -12,6 +12,8 @@
     <PackageReference Include="OmniSharp.Abstractions" />
     <PackageReference Include="OmniSharp.Roslyn" />
     <PackageReference Include="OmniSharp.Shared" />
+    <PackageReference Include="Microsoft.VisualStudio.Services.InteractiveClient" />
+    <PackageReference Include="Microsoft.VisualStudio.Services.Search.Client" />
   </ItemGroup>
 
 </Project>

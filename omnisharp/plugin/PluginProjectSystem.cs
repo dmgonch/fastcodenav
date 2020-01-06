@@ -71,9 +71,9 @@ namespace OmniSharp.FastCodeNavPlugin
                 return;
             }
 
+            _logger.LogDebug($"FastCodeNav plugin is initializing {repoInfo.SearchProviderType} Code Search provider for project {repoInfo.ProjectUri}, repo {repoInfo.RepoName}.");
             _codeSearchService = new AzureDevOpsCodeSearchService(_workspace, _loggerFactory, repoInfo);
 
-            _logger.LogDebug($"FastCodeNav plugin has been initialized for project {repoInfo.ProjectUri}, repo {repoInfo.RepoName}.");
             Initialized = true;
         }
 

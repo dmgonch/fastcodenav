@@ -1,6 +1,6 @@
 namespace OmniSharp.FastCodeNavPlugin
 {
-    internal enum RepoSearchProviderType
+    public enum RepoSearchProviderType
     {
         Unknown = 0,
         AzureDevOps = 1,

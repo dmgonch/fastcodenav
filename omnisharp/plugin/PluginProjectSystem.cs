@@ -13,7 +13,8 @@ namespace OmniSharp.FastCodeNavPlugin
 {
     // Export a 'fake' project system to hook up into OmniSharp's initialization
     [ExportProjectSystem("FastCodeNavPlugin"), Shared]
-    internal class PluginProjectSystem : IProjectSystem, ICodeSearchServiceProvider
+    [Export(typeof(ICodeSearchServiceProvider))]
+    public class PluginProjectSystem : IProjectSystem, ICodeSearchServiceProvider
     {
         private readonly IOmniSharpEnvironment _environment;
         private readonly OmniSharpWorkspace _workspace;

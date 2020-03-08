@@ -3,17 +3,15 @@
   <PropertyGroup>
     <TargetFrameworks>net472</TargetFrameworks>
     <PlatformTarget>AnyCPU</PlatformTarget>
+    <UserSecretsId>0a52de41-9188-4ded-a576-e644a326238b</UserSecretsId>
   </PropertyGroup>
-
-  <ItemGroup>
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="OmniSharp.Abstractions" />
     <PackageReference Include="OmniSharp.Roslyn" />
-    <PackageReference Include="OmniSharp.Shared" />
     <PackageReference Include="Microsoft.VisualStudio.Services.InteractiveClient" />
     <PackageReference Include="Microsoft.VisualStudio.Services.Search.Client" />
+    <PackageReference Include="Newtonsoft.Json" />
   </ItemGroup>
 
 </Project>

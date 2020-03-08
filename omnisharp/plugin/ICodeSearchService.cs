@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 
 namespace OmniSharp.FastCodeNavPlugin
 {
-    internal interface ICodeSearchService
+    public interface ICodeSearchService
     {
         Task Foo();
     }

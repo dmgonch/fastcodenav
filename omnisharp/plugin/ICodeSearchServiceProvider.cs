@@ -1,6 +1,6 @@
 namespace OmniSharp.FastCodeNavPlugin
 {
-    internal interface ICodeSearchServiceProvider
+    public interface ICodeSearchServiceProvider
     {
         ICodeSearchService CodeSearchService();
     }

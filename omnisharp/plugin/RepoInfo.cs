@@ -5,7 +5,7 @@ using OmniSharp.Utilities;
 
 namespace OmniSharp.FastCodeNavPlugin
 {
-    internal class RepoInfo
+    public class RepoInfo
     {
         private static readonly Regex AzureDevOpsUriRegex = new Regex(
             @"(?ix)^https://(?<account>.+)\.(?<domain>visualstudio\.com|azure.com)/(?<collection>[^/]+)(/(?<project>.+))?/_git/(?<optimization>_full/|_optimized/)?(?<repo>.+)$", RegexOptions.Compiled);

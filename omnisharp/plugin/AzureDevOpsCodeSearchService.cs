@@ -24,7 +24,7 @@ namespace OmniSharp.FastCodeNavPlugin
             InitializeSearchClientAsync(repoInfo).FireAndForget(_logger);
         }
 
-        private async Task InitializeSearchClientAsync(RepoInfo repoInfo)
+        public async Task InitializeSearchClientAsync(RepoInfo repoInfo)
         {
             if (_searchClient != null)
             {

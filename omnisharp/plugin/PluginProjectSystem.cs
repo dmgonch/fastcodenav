@@ -42,6 +42,8 @@ namespace OmniSharp.FastCodeNavPlugin
             _logger = loggerFactory.CreateLogger<PluginProjectSystem>();
         }
 
+        public ICodeSearchService CodeSearchService => _codeSearchService;
+
         public Task<object> GetWorkspaceModelAsync(WorkspaceInformationRequest request)
         {
             return Task.FromResult((object)string.Empty);
@@ -76,11 +78,6 @@ namespace OmniSharp.FastCodeNavPlugin
             _codeSearchService = new AzureDevOpsCodeSearchService(_workspace, _loggerFactory, repoInfo);
 
             Initialized = true;
-        }
-
-        public ICodeSearchService CodeSearchService()
-        {
-            return _codeSearchService;
         }
     }
 }

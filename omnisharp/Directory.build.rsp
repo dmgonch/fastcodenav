@@ -1,5 +1,23 @@
--v:minimal
--MaxCPUCount
--NodeReuse:false
--Property:NuGetInteractive=True
--IgnoreProjectExtensions:.sln
+/NodeReuse:false
+/IgnoreProjectExtensions:.sln
+
+# Don't know why this is not the default yet in 2019....
+/MaxCPUCount
+
+# Fail the build if there is a file lock on a running project, don't hide it in the crowd.
+/warnaserror:MSB3026
+
+# Reduce the amount of crud on the console, especially since it can't be resized in msbuild...
+/ConsoleLoggerParameters:Verbosity=Minimal;Summary;ForceNoAlign
+
+# Enable static graph NuGet restore optimization (if available).
+# TODO: .NET Core SDK 3.1.200 is incompatible with this switch on Linux - it produces the error like below.
+#      Could not execute because the specified command or file was not found.
+#      Possible reasons for this include:
+#        * You misspelled a built-in dotnet command.
+#        * You intended to execute a .NET Core program, but dotnet-/usr/share/dotnet/sdk/3.1.201/NuGet.Build.Tasks.Console.dll does not exist.
+#        * You intended to run a global tool, but a dotnet-prefixed executable with this name could not be found on the PATH.
+# /p:RestoreUseStaticGraphEvaluation=true
+
+# Enable static graph build.
+/graph

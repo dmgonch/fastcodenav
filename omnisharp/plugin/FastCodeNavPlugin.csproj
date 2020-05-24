@@ -1,9 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net472</TargetFrameworks>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <UserSecretsId>0a52de41-9188-4ded-a576-e644a326238b</UserSecretsId>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>

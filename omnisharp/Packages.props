@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup Label="Packages to add to all projects">
-    <GlobalPackageReference Include="SlnGen" Version="2.2.28" Condition=" '$(EnableSlnGen)' != 'false' " />
+    <GlobalPackageReference Include="SlnGen" Version="2.2.30" Condition=" '$(EnableSlnGen)' != 'false' " />
   </ItemGroup>
 
 </Project>

@@ -2,7 +2,16 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   
   <PropertyGroup>
-    <OmniSharpPackageVer>1.35.2</OmniSharpPackageVer>
+    <!--
+    Stick with latest O# packages compatible with the latest officially released O# server
+    (get latest release at https://github.com/OmniSharp/omnisharp-vscode/releases and see omniSharp version in package.json as of that commit
+    i.e. https://github.com/OmniSharp/omnisharp-vscode/blob/master/package.json#L33).
+    The incompatibility is likely due to https://github.com/OmniSharp/omnisharp-roslyn/pull/1804 and causes the following error:
+    System.MissingMethodException: Method not found: 'System.Threading.Tasks.Task`1<OmniSharp.Models.QuickFixResponse> OmniSharp.Extensions.SolutionExtensions.FindSymbols(Microsoft.CodeAnalysis.Solution, System.String, System.String, Int32)  
+    Try removing NoWarn below in the next upgrade.
+    -->
+    <OmniSharpPackageVer>1.35.1</OmniSharpPackageVer>
+    <NoWarn>$(NoWarn);NU1603</NoWarn>
     <VsServicesPackageVer>16.169.0-preview</VsServicesPackageVer>
   </PropertyGroup>
   

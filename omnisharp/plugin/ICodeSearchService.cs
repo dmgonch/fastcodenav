@@ -7,7 +7,7 @@ namespace OmniSharp.FastCodeNavPlugin
 {
     public interface ICodeSearchService
     {
-        Task<List<QuickFix>> Query(string filter, int maxResults, TimeSpan timeout, bool exactMatch, CodeSearchQueryType searchType);
+        Task<List<QuickFix>> QueryAsync(string filter, int maxResults, TimeSpan timeout, bool exactMatch, CodeSearchQueryType searchType);
     }
 
     public enum CodeSearchQueryType

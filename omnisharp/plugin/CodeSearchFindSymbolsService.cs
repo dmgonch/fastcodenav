@@ -48,7 +48,7 @@ namespace OmniSharp.FastCodeNavPlugin
 
             int maxItems = (request?.MaxItemsToReturn).GetValueOrDefault();
 
-            Task<List<QuickFix>> queryCodeSearchTask = _codeSearchServiceProvider.CodeSearchService.Query(
+            Task<List<QuickFix>> queryCodeSearchTask = _codeSearchServiceProvider.CodeSearchService.QueryAsync(
                 request.Filter, Math.Min(maxItems, MaxCodeSearchResults), QueryCodeSearchTimeout, exactMatch: false, CodeSearchQueryType.FindDefinitions);
 
             QuickFixResponse queryWorkspaceSymbols = await _workspace.CurrentSolution.FindSymbols(request?.Filter, ".csproj", maxItems);

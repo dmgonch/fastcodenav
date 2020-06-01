@@ -1,6 +1,9 @@
 /NodeReuse:false
 /IgnoreProjectExtensions:.sln
 
+# Having full paths printed in error messages allows navigating to the error site by clicking the file name in the error in VSCode.
+/p:GenerateFullPaths=true
+
 # Don't know why this is not the default yet in 2019....
 /MaxCPUCount
 

@@ -7,7 +7,7 @@ namespace OmniSharp.FastCodeNavPlugin
     {
         public static void FireAndForget(this Task task, ILogger logger)
         {
-            task.ContinueWith(t =>
+            var nowait = task.ContinueWith(t =>
             {
                 if (t.IsFaulted)
                 {
@@ -20,7 +20,8 @@ namespace OmniSharp.FastCodeNavPlugin
                         logger.LogError(t.Exception, $"Unhandled exception in fire and forget task: {t.Exception?.Message}");
                     }
                 }
-            });
+            },
+            TaskScheduler.Default);
         }
     }
 }

@@ -67,7 +67,7 @@ namespace OmniSharp.FastCodeNavPlugin
             }
         }
 
-        public async Task<List<QuickFix>> Query(string filter, int maxResults, TimeSpan timeout, bool exactMatch, CodeSearchQueryType searchType)
+        public async Task<List<QuickFix>> QueryAsync(string filter, int maxResults, TimeSpan timeout, bool exactMatch, CodeSearchQueryType searchType)
         {
             if (_searchClient == null)
             {
@@ -115,7 +115,7 @@ namespace OmniSharp.FastCodeNavPlugin
 
                     if (response != null)
                     {
-                        result = await GetQuickFixesFromCodeResults(response.Results, searchType, filter, exactMatch);
+                        result = await GetQuickFixesFromCodeResultsAsync(response.Results, searchType, filter, exactMatch);
                         _queryResultsCache.Set(request.SearchText, result, TimeSpan.FromMinutes(5));
                     }
                 }
@@ -128,7 +128,7 @@ namespace OmniSharp.FastCodeNavPlugin
             return result ?? new List<QuickFix>();
         }
         
-        private async Task<List<QuickFix>> GetQuickFixesFromCodeResults(IEnumerable<CodeResult> codeResults,
+        private async Task<List<QuickFix>> GetQuickFixesFromCodeResultsAsync(IEnumerable<CodeResult> codeResults,
             CodeSearchQueryType searchType, string searchFilter, bool exactMatch)
         {
             var transform = new TransformBlock<CodeResult, List<QuickFix>>(codeResult =>

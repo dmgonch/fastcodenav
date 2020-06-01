@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="StreamJsonRpc" />
+    <PackageReference Include="Microsoft.Extensions.Logging" />
   </ItemGroup>
 
 </Project>

@@ -1,9 +1,9 @@
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 
-namespace OmniSharp.FastCodeNavPlugin
+namespace FastCodeNavPlugin.Common
 {
-    internal static class TaskExtensions
+    public static class TaskExtensions
     {
         public static void FireAndForget(this Task task, ILogger logger)
         {

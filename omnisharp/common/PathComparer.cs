@@ -1,12 +1,11 @@
-﻿// See https://github.com/microsoft/MSBuildPrediction/blob/4df4c90e0ef0e799c4f2d9c2b79c582dbc907050/src/BuildPrediction/PathComparer.cs
+﻿using System;
 
 namespace FastCodeNavPlugin.Common
 {
-    using System;
-
     /// <summary>
     /// Gets the appdomain-wide appropriate filesystem path string comparer
     /// appropriate to the current operating system.
+    /// Based on https://github.com/microsoft/MSBuildPrediction/blob/4df4c90e0ef0e799c4f2d9c2b79c582dbc907050/src/BuildPrediction/PathComparer.cs
     /// </summary>
     public static class PathComparer
     {

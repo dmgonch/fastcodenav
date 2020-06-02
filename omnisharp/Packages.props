@@ -17,9 +17,11 @@
   </PropertyGroup>
   
   <ItemGroup Label="Package Versions used by this repository">  
+    <PackageReference Update="CommandLineParser" Version="[2.8.0]" />
     <PackageReference Update="OmniSharp.Abstractions" Version="[$(OmniSharpPackageVer)]" />
     <PackageReference Update="OmniSharp.Roslyn" Version="[$(OmniSharpPackageVer)]" />
     <PackageReference Update="Microsoft.Extensions.Caching.Memory" Version="[$(MicrosoftExtensionsPackageVer)]" />
+    <PackageReference Update="Microsoft.Extensions.Hosting" Version="[$(MicrosoftExtensionsPackageVer)]" />
     <PackageReference Update="Microsoft.Extensions.Logging" Version="[$(MicrosoftExtensionsPackageVer)]" />
     <PackageReference Update="Microsoft.VisualStudio.Services.InteractiveClient" Version="[$(VsServicesPackageVer)]" />
     <PackageReference Update="Microsoft.VisualStudio.Services.Search.Client" Version="[$(VsServicesPackageVer)]" />

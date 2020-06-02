@@ -1,6 +1,6 @@
 ﻿// See https://github.com/microsoft/MSBuildPrediction/blob/4df4c90e0ef0e799c4f2d9c2b79c582dbc907050/src/BuildPrediction/PathComparer.cs
 
-namespace OmniSharp.FastCodeNavPlugin
+namespace FastCodeNavPlugin.Common
 {
     using System;
 
@@ -8,7 +8,7 @@ namespace OmniSharp.FastCodeNavPlugin
     /// Gets the appdomain-wide appropriate filesystem path string comparer
     /// appropriate to the current operating system.
     /// </summary>
-    internal static class PathComparer
+    public static class PathComparer
     {
         public static readonly StringComparer Instance = GetPathComparer();
         public static readonly StringComparison Comparison = GetPathComparison();

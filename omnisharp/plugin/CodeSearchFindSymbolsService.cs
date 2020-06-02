@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Composition;
 using System.Linq;
 using System.Threading.Tasks;
+using FastCodeNavPlugin.Common;
 using Microsoft.CodeAnalysis;
 using Microsoft.Extensions.Logging;
 using OmniSharp.Extensions;

@@ -3,13 +3,12 @@
   <PropertyGroup>
     <TargetFramework>net472</TargetFramework>
     <PlatformTarget>AnyCPU</PlatformTarget>
+    <OutputPath>$(ProjectDistribPath)</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="OmniSharp.Abstractions" />
     <PackageReference Include="OmniSharp.Roslyn" />
-    <PackageReference Include="Microsoft.VisualStudio.Services.InteractiveClient" />
-    <PackageReference Include="Microsoft.VisualStudio.Services.Search.Client" />
     <PackageReference Include="StreamJsonRpc" />
   </ItemGroup>
 

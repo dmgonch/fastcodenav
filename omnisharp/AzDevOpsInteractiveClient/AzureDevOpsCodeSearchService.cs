@@ -48,9 +48,6 @@ namespace AzDevOpsInteractiveClient
                 var connection = new VssConnection(_projectUri, creds);
                 _searchClient = await connection.GetClientAsync<SearchHttpClient>();
                 _logger.LogInformation($"Successfully initialized Azure DevOps Code Search Client for {_projectUri}");
-
-                // Kick off a warm up query
-                await SearchCodeAsync(new SearchRequest { Filter = "_AzureDevOpsCodeSearchService_WarmUp_", MaxResults = 1 });
             }
             catch (Exception e)
             {

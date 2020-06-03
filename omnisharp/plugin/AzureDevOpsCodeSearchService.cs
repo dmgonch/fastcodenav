@@ -44,7 +44,7 @@ namespace OmniSharp.FastCodeNavPlugin
                 return;
             }
 
-            string clientPath = Path.Combine(Path.GetDirectoryName(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)), 
+            string clientPath = Path.Combine(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location))), 
                 "AzDevOpsInteractiveClient", "net472", "AzDevOpsInteractiveClient.exe");
 
             string pipeName = $"AzDevOpsClientPipe-{Process.GetCurrentProcess().Id}";
@@ -53,17 +53,18 @@ namespace OmniSharp.FastCodeNavPlugin
             _clientProcess.StartInfo = new ProcessStartInfo(clientPath)
             {
                 Arguments = 
-                    $@"--RootDir ""{_repoInfo.RootDir}""" +
+                    $@"--RootDir ""{_repoInfo.RootDir}"" " +
                     $@"--ProjectUri {_repoInfo.ProjectUri} " +
-                    $@"--ProjectName ""{_repoInfo.ProjectName}""" +
-                    $@"--RepoName ""{_repoInfo.RepoName}""" +
-                    $@"--RpcPipeName ""{pipeName}""",
+                    $@"--ProjectName ""{_repoInfo.ProjectName}"" " +
+                    $@"--RepoName ""{_repoInfo.RepoName}"" " +
+                    $@"--RpcPipeName ""{pipeName}"" ",
                 UseShellExecute = true,
                 CreateNoWindow = false,
                 // RedirectStandardInput = true,
                 // RedirectStandardOutput = true
             };
 
+            _logger.LogDebug($"FastCodeNav: Launching {clientPath} with arguments '{_clientProcess.StartInfo.Arguments}'");
             if (!_clientProcess.Start())
             {
                 _logger.LogError($"FastCodeNav: Failed to launch {clientPath}");
@@ -135,6 +136,7 @@ namespace OmniSharp.FastCodeNavPlugin
                     {
                         _queryResultsCache.Set(cacheKey, result, TimeSpan.FromMinutes(5));
 
+                        result = new List<QuickFix>();
                         foreach (SearchResult searchResult in response.Results)
                         {
                             result.Add(new QuickFix

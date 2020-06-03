@@ -1,9 +1,11 @@
 ﻿using System;
+using System.IO.Pipes;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using CommandLine;
 using CommandLine.Text;
 using FastCodeNavPlugin.Common;
-using Microsoft.Extensions.Logging;
+using StreamJsonRpc;
 
 namespace AzDevOpsInteractiveClient
 {
@@ -88,7 +90,35 @@ namespace AzDevOpsInteractiveClient
         internal async Task<int> RunAsync()
         {
             Logger.LogInformation($"AzDevOpsInteractiveClient is running");
-            return await Task.FromResult(0);
+
+            try
+            {
+                // Create and asyncronously initialize Azure DevOps client
+                var service = new AzureDevOpsCodeSearchService(LoggerFactoryInstance, _opts);
+                service.InitializeAsync().FireAndForget(Logger);
+
+                Logger.LogInformation($"Waiting for client to make a connection to pipe {_opts.RpcPipeName} for repo {_opts.ProjectUri}");
+                using (var stream = new NamedPipeServerStream(_opts.RpcPipeName, 
+                    PipeDirection.InOut, NamedPipeServerStream.MaxAllowedServerInstances, PipeTransmissionMode.Byte, PipeOptions.Asynchronous))
+                {
+                    await stream.WaitForConnectionAsync();
+                    using (var jsonRpc = new JsonRpc(stream))
+                    {
+                        jsonRpc.AddLocalRpcTarget(service);
+                        jsonRpc.StartListening();
+                        await jsonRpc.Completion;
+                    }
+                }
+
+                Logger.LogInformation($"AzDevOpsInteractiveClient is existing");
+            }
+            catch(Exception e)
+            {
+                Logger.LogError(e, $"Failure while processing RPC requests");
+                return 1;
+            }
+
+            return 0;
         }
     }
 }

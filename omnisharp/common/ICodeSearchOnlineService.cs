@@ -9,7 +9,7 @@ namespace FastCodeNavPlugin.Common
     /// </summary>
     public interface ICodeSearchOnlineService
     {
-        Task<SearchQueryResults> SearchCodeAsync(SearchRequest searchRequest);
+        Task<SearchResults> SearchCodeAsync(SearchRequest searchRequest);
     }
 
     /// <summary>
@@ -37,7 +37,7 @@ namespace FastCodeNavPlugin.Common
         public string Text { get; set; }
     }
 
-    public class SearchQueryResults
+    public class SearchResults
     {
         public List<SearchResult> Results { get; set; }
     }

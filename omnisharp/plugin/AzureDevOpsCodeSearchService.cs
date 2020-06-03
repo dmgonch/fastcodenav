@@ -81,8 +81,8 @@ namespace OmniSharp.FastCodeNavPlugin
             jsonRpc.StartListening();
             _jsonRpc = jsonRpc;
 
-            _logger.LogDebug($"FastCodeNav: Issuing a warmup search request");
-            _jsonRpc.InvokeAsync<SearchResults>("SearchCodeAsync", new SearchRequest { Filter = "_AzureDevOpsCodeSearchService_WarmUp_", MaxResults = 1 }).FireAndForget(_logger);
+            _logger.LogDebug($"FastCodeNav: Issuing a warmup RPC request");
+            _jsonRpc.InvokeAsync("WarmUpAsync").FireAndForget(_logger);
         }
 
         public async Task<List<QuickFix>> QueryAsync(string filter, int maxResults, TimeSpan timeout, bool exactMatch, CodeSearchQueryType searchType)
@@ -92,7 +92,7 @@ namespace OmniSharp.FastCodeNavPlugin
                 return new List<QuickFix>();
             }
 
-            List<QuickFix> result = null;
+            List<QuickFix> results = null;
             string searchTypeString;
             switch (searchType)
             {
@@ -130,16 +130,14 @@ namespace OmniSharp.FastCodeNavPlugin
                             FindReferences = searchType == CodeSearchQueryType.FindReferences
                         }}, ct.Token);
 
-                    _logger.LogDebug($"FastCodeNav: search for '{cacheKey}' completed in {sw.Elapsed.TotalSeconds} seconds and contains {response.Results.Count()} result(s)");
+                    _logger.LogDebug($"FastCodeNav: search for '{cacheKey}' completed in {sw.Elapsed.TotalSeconds:F2} seconds and contains {response.Results.Count()} result(s)");
 
                     if (response != null)
                     {
-                        _queryResultsCache.Set(cacheKey, result, TimeSpan.FromMinutes(5));
-
-                        result = new List<QuickFix>();
+                        results = new List<QuickFix>();
                         foreach (SearchResult searchResult in response.Results)
                         {
-                            result.Add(new QuickFix
+                            results.Add(new QuickFix
                             {
                                 FileName = searchResult.FileName, 
                                 Text = searchResult.Text, 
@@ -149,6 +147,8 @@ namespace OmniSharp.FastCodeNavPlugin
                                 EndColumn = searchResult.EndColumn,
                             });
                         }
+
+                        _queryResultsCache.Set(cacheKey, results, TimeSpan.FromMinutes(5));
                     }
                 }
             }
@@ -157,7 +157,7 @@ namespace OmniSharp.FastCodeNavPlugin
                 _logger.LogError(e, $"Failed to search for '{cacheKey}'");
             }
 
-            return result ?? new List<QuickFix>();
+            return results ?? new List<QuickFix>();
         }
     }
 }

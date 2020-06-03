@@ -9,6 +9,7 @@ namespace FastCodeNavPlugin.Common
     /// </summary>
     public interface ICodeSearchOnlineService
     {
+        Task WarmUpAsync();
         Task<SearchResults> SearchCodeAsync(SearchRequest searchRequest);
     }
 

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Composition;
+using System.IO;
+using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -19,6 +21,7 @@ namespace OmniSharp.FastCodeNavPlugin
         private readonly IOmniSharpEnvironment _environment;
         private readonly OmniSharpWorkspace _workspace;
         private readonly ILoggerFactory _loggerFactory;
+        private readonly string PluginDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
         private ICodeSearchService _codeSearchService;
 
@@ -56,6 +59,8 @@ namespace OmniSharp.FastCodeNavPlugin
 
         public void Initalize(IConfiguration configuration)
         {
+            AppDomain.CurrentDomain.AssemblyResolve += Resolve;
+
             if (string.IsNullOrEmpty(_environment.TargetDirectory))
             {
                 _logger.LogDebug($"FastCodeNav plugin cannot be initialized because OmniSharp environment's target directory is empty");
@@ -78,6 +83,23 @@ namespace OmniSharp.FastCodeNavPlugin
             _codeSearchService = new AzureDevOpsCodeSearchService(_workspace, _loggerFactory, repoInfo);
 
             Initialized = true;
+        }
+
+        private Assembly Resolve(object sender, ResolveEventArgs e)
+        {
+            var assemblyName = new AssemblyName(e.Name);
+            string requestingAssembly = e?.RequestingAssembly == null ? string.Empty : $" Requested by {e?.RequestingAssembly?.FullName}";
+            _logger.LogDebug($"FastCodeNav: Attempting to resolve {e.Name}.{requestingAssembly}");
+
+            string loadFromPath = Path.Combine(PluginDir, assemblyName.Name + ".dll");
+            if (!File.Exists(loadFromPath))
+            {
+                _logger.LogError($"FastCodeNav: Cannot resolve {e.Name} because {loadFromPath} doesn't exist");
+                return null;
+            }
+
+            _logger.LogDebug($"FastCodeNav: Loading {loadFromPath}");
+            return Assembly.LoadFrom(loadFromPath);
         }
     }
 }

@@ -28,7 +28,12 @@ namespace AzDevOpsInteractiveClient
             int retCode = 0;
             try
             {
-                LoggerFactoryInstance = LoggerFactory.Create(builder => builder.AddProvider(new CodeSearchServiceLoggerProvider()));
+                // When switching to Microsoft.Extensions.Logging 3.0+ replace with the following
+                // (more info at https://docs.microsoft.com/en-us/aspnet/core/migration/logging-nonaspnetcore?view=aspnetcore-3.1)
+                //LoggerFactoryInstance = LoggerFactory.Create(builder => builder.AddProvider(new CodeSearchServiceLoggerProvider()));
+                LoggerFactoryInstance = new LoggerFactory();
+                LoggerFactoryInstance.AddProvider(new CodeSearchServiceLoggerProvider());
+
                 Logger = LoggerFactoryInstance.CreateLogger<Program>();
                 Logger.LogInformation($"AzDevOpsInteractiveClient is starting");
 

@@ -13,7 +13,8 @@
     <OmniSharpPackageVer>1.35.1</OmniSharpPackageVer>
     <NoWarn>$(NoWarn);NU1603</NoWarn>
     <VsServicesPackageVer>16.169.0-preview</VsServicesPackageVer>
-    <MicrosoftExtensionsPackageVer>3.1.4</MicrosoftExtensionsPackageVer>
+    <!-- Stay in sync with the version used by O#: https://github.com/OmniSharp/omnisharp-roslyn/blob/54d9230b66ba039e51371a598a9f9abafadc8c33/build/Packages.props#L46 -->
+    <MicrosoftExtensionsPackageVer>2.1.1</MicrosoftExtensionsPackageVer>
   </PropertyGroup>
   
   <ItemGroup Label="Package Versions used by this repository">  

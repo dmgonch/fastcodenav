@@ -6,6 +6,7 @@ using CommandLine;
 using CommandLine.Text;
 using FastCodeNavPlugin.Common;
 using StreamJsonRpc;
+using System.Diagnostics;
 
 namespace AzDevOpsInteractiveClient
 {
@@ -90,6 +91,15 @@ namespace AzDevOpsInteractiveClient
         internal async Task<int> RunAsync()
         {
             Logger.LogInformation($"AzDevOpsInteractiveClient is running");
+
+            if (_opts.WaitDebug)
+            {
+                while (!Debugger.IsAttached)
+                {
+                    Logger.LogInformation("Awaiting for an attached debugger");
+                    await Task.Delay(TimeSpan.FromMilliseconds(500));
+                }
+            }
 
             try
             {

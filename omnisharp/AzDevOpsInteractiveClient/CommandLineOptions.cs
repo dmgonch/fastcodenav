@@ -18,5 +18,8 @@ namespace AzDevOpsInteractiveClient
 
         [Option(nameof(RpcPipeName), Required = true, HelpText = "Pipe name for RPC communication.")]
         public string RpcPipeName { get; set; }
+
+        [Option(nameof(WaitDebug), Required = false, HelpText = "When set, the process pauses at start until a debugger is attached.")]
+        public bool WaitDebug { get; set; }
     }
 }

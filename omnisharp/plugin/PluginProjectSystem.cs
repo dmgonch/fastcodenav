@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using System.Composition;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using FastCodeNavPlugin.Common;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using OmniSharp.Mef;
 using OmniSharp.Models.WorkspaceInformation;
 using OmniSharp.Services;
+using OmniSharp.Utilities;
 
 // Prefix namespace with 'OmniSharp' for logging messages to appear in VSCode Output window, 'OmniSharp Log' channel
 namespace OmniSharp.FastCodeNavPlugin
@@ -80,7 +83,11 @@ namespace OmniSharp.FastCodeNavPlugin
             }
 
             _logger.LogDebug($"FastCodeNav plugin is initializing {repoInfo.SearchProviderType} Code Search provider for project {repoInfo.ProjectUri}, repo {repoInfo.RepoName}.");
-            _codeSearchService = new AzureDevOpsCodeSearch(_workspace, _loggerFactory, repoInfo);
+            var azureDevOpsCodeSearch = new AzureDevOpsCodeSearch(_workspace, _loggerFactory, repoInfo);
+            _codeSearchService = azureDevOpsCodeSearch;
+
+            azureDevOpsCodeSearch.InitializeCodeSearchServiceAsync().FireAndForget(_logger);
+            LoadProjectsForLocalChangesAsync(repoInfo.RootDir).FireAndForget(_logger);
 
             Initialized = true;
         }
@@ -100,6 +107,39 @@ namespace OmniSharp.FastCodeNavPlugin
 
             _logger.LogDebug($"FastCodeNav: Loading {loadFromPath}");
             return Assembly.LoadFrom(loadFromPath);
+        }
+
+        private async Task LoadProjectsForLocalChangesAsync(string repoRoot)
+        {
+            string modifiedFiles = ProcessHelper.RunAndCaptureOutput("git", "diff --name-only", repoRoot);
+            string cachedFiles = ProcessHelper.RunAndCaptureOutput("git", "diff --cached --name-only", repoRoot);
+            string commitedFiles = ProcessHelper.RunAndCaptureOutput("git", "diff master..head --name-only", repoRoot);
+
+            List<string> changedFiles = (new[] { modifiedFiles, cachedFiles, commitedFiles })
+                .SelectMany(changes => changes.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries))
+                .Distinct(StringComparer.OrdinalIgnoreCase)
+                .ToList();
+
+            foreach (string changedFile in changedFiles)
+            {
+                try
+                {
+                    string fullFilePath = Path.Combine(repoRoot, changedFile);
+                    if (File.Exists(fullFilePath))
+                    {
+                        _logger.LogDebug($"FastCodeNav: Loading project for changed document {fullFilePath}");
+                        await _workspace.GetDocumentsFromFullProjectModelAsync(fullFilePath);
+                    }
+                    else
+                    {
+                        _logger.LogDebug($"FastCodeNav: Skipped loading project for changed document {fullFilePath} that was not found on disk.");
+                    }
+                }
+                catch(Exception e)
+                {
+                    _logger.LogWarning($"FastCodeNav: Exception occurred while loading project for changed document '{changedFile}': {e}");
+                }
+            }
         }
     }
 }

@@ -33,11 +33,9 @@ namespace OmniSharp.FastCodeNavPlugin
             _workspace = workspace;
             _logger = loggerFactory.CreateLogger<AzureDevOpsCodeSearch>();
             _repoInfo = repoInfo;
-
-            InitializeCodeSearchServiceAsync(repoInfo).FireAndForget(_logger);
         }
 
-        public async Task InitializeCodeSearchServiceAsync(RepoInfo repoInfo)
+        public async Task InitializeCodeSearchServiceAsync()
         {
             if (_jsonRpc != null)
             {

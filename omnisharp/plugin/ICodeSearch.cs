@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace OmniSharp.FastCodeNavPlugin
 {
-    public interface ICodeSearchService
+    public interface ICodeSearch
     {
         Task<List<QuickFix>> QueryAsync(string filter, int maxResults, TimeSpan timeout, bool exactMatch, CodeSearchQueryType searchType);
     }

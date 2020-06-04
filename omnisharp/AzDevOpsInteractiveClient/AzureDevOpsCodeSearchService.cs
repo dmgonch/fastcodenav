@@ -16,7 +16,7 @@ using FastCodeNavPlugin.Common;
 
 namespace AzDevOpsInteractiveClient
 {
-    internal class AzureDevOpsCodeSearchService : ICodeSearchOnlineService
+    internal class AzureDevOpsCodeSearchService : ICodeSearchService
     {
         private readonly ILogger _logger;
         private readonly IDictionary<string, IEnumerable<string>> _searchFilters;

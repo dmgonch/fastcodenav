@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 namespace FastCodeNavPlugin.Common
 {
     /// <summary>
-    /// Represents online Code Search service
+    /// Represents remote Code Search service
     /// </summary>
-    public interface ICodeSearchOnlineService
+    public interface ICodeSearchService
     {
         Task WarmUpAsync();
         Task<SearchResults> SearchCodeAsync(SearchRequest searchRequest);

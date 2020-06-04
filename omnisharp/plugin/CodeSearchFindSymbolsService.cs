@@ -20,14 +20,14 @@ namespace OmniSharp.FastCodeNavPlugin
         private const int MaxCodeSearchResults = 200;
 
         private readonly OmniSharpWorkspace _workspace;
-        private readonly ICodeSearchServiceProvider _codeSearchServiceProvider;
+        private readonly ICodeSearchProvider _codeSearchServiceProvider;
         private readonly ILogger _logger;
 
         [ImportingConstructor]
         public CodeSearchFindSymbolsService(
             OmniSharpWorkspace workspace,
             ILoggerFactory loggerFactory,
-            ICodeSearchServiceProvider codeSearchServiceProvider)
+            ICodeSearchProvider codeSearchServiceProvider)
         {
             _workspace = workspace;
             _codeSearchServiceProvider = codeSearchServiceProvider;

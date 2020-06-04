@@ -15,7 +15,7 @@ using StreamJsonRpc;
 
 namespace OmniSharp.FastCodeNavPlugin
 {
-    internal class AzureDevOpsCodeSearchService : ICodeSearchService
+    internal class AzureDevOpsCodeSearch : ICodeSearch
     {
         private readonly RepoInfo _repoInfo;
         private readonly OmniSharpWorkspace _workspace;
@@ -25,19 +25,19 @@ namespace OmniSharp.FastCodeNavPlugin
         private Process _clientProcess;
         private JsonRpc _jsonRpc;
 
-        public AzureDevOpsCodeSearchService(
+        public AzureDevOpsCodeSearch(
             OmniSharpWorkspace workspace,
             ILoggerFactory loggerFactory,
             RepoInfo repoInfo)
         {
             _workspace = workspace;
-            _logger = loggerFactory.CreateLogger<AzureDevOpsCodeSearchService>();
+            _logger = loggerFactory.CreateLogger<AzureDevOpsCodeSearch>();
             _repoInfo = repoInfo;
 
-            InitializeCodeSearchOnlineServiceAsync(repoInfo).FireAndForget(_logger);
+            InitializeCodeSearchServiceAsync(repoInfo).FireAndForget(_logger);
         }
 
-        public async Task InitializeCodeSearchOnlineServiceAsync(RepoInfo repoInfo)
+        public async Task InitializeCodeSearchServiceAsync(RepoInfo repoInfo)
         {
             if (_jsonRpc != null)
             {
@@ -77,7 +77,7 @@ namespace OmniSharp.FastCodeNavPlugin
             _logger.LogDebug($"FastCodeNav: Connected to search service client.");
 
             var jsonRpc = new JsonRpc(stream);
-            var jsonRpcProxy = jsonRpc.Attach<ICodeSearchOnlineService>();
+            var jsonRpcProxy = jsonRpc.Attach<ICodeSearchService>();
             jsonRpc.StartListening();
             _jsonRpc = jsonRpc;
 

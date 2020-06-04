@@ -15,15 +15,15 @@ namespace OmniSharp.FastCodeNavPlugin
 {
     // Export a 'fake' project system to hook up into OmniSharp's initialization
     [ExportProjectSystem("FastCodeNavPlugin"), Shared]
-    [Export(typeof(ICodeSearchServiceProvider))]
-    public class PluginProjectSystem : IProjectSystem, ICodeSearchServiceProvider
+    [Export(typeof(ICodeSearchProvider))]
+    public class PluginProjectSystem : IProjectSystem, ICodeSearchProvider
     {
         private readonly IOmniSharpEnvironment _environment;
         private readonly OmniSharpWorkspace _workspace;
         private readonly ILoggerFactory _loggerFactory;
         private readonly string PluginDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
-        private ICodeSearchService _codeSearchService;
+        private ICodeSearch _codeSearchService;
 
         public string Key { get; } = "FastCodeNavPlugin";
         public string Language { get; } = "FastCodeNavPlugin";
@@ -45,7 +45,7 @@ namespace OmniSharp.FastCodeNavPlugin
             _logger = loggerFactory.CreateLogger<PluginProjectSystem>();
         }
 
-        public ICodeSearchService CodeSearchService => _codeSearchService;
+        public ICodeSearch CodeSearchService => _codeSearchService;
 
         public Task<object> GetWorkspaceModelAsync(WorkspaceInformationRequest request)
         {
@@ -80,7 +80,7 @@ namespace OmniSharp.FastCodeNavPlugin
             }
 
             _logger.LogDebug($"FastCodeNav plugin is initializing {repoInfo.SearchProviderType} Code Search provider for project {repoInfo.ProjectUri}, repo {repoInfo.RepoName}.");
-            _codeSearchService = new AzureDevOpsCodeSearchService(_workspace, _loggerFactory, repoInfo);
+            _codeSearchService = new AzureDevOpsCodeSearch(_workspace, _loggerFactory, repoInfo);
 
             Initialized = true;
         }

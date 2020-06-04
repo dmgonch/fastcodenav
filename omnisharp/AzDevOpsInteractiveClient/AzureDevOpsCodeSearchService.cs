@@ -145,11 +145,29 @@ namespace AzDevOpsInteractiveClient
             transform.Complete();
 
             var allFoundSymbols = new List<SearchResult>();
+            var uniqueResults = new Dictionary<string, /*not used*/int>();
             while (await buffer.OutputAvailableAsync().ConfigureAwait(false))
             {
                 foreach (List<SearchResult> symbols in buffer.ReceiveAll().Where(item => item != null))
                 {
-                    allFoundSymbols.AddRange(symbols);
+                    if (findReferences)
+                    {
+                        allFoundSymbols.AddRange(symbols);
+                    }
+                    else
+                    {
+                        // When looking for symbols definitions leave only one result per file with exactly the same text since they are not distinguishable
+                        // in VSCode's Find Symbols combobox.
+                        foreach (SearchResult symbol in symbols)
+                        {
+                            string uniqueResultKey = symbol.Text + symbol.FileName;
+                            if (!uniqueResults.ContainsKey(uniqueResultKey))
+                            {
+                                allFoundSymbols.Add(symbol);
+                                uniqueResults.Add(uniqueResultKey, 0 /*not used*/);
+                            }
+                        }
+                    }
                 }
             }
 

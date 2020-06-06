@@ -9,6 +9,7 @@
   <ItemGroup>
     <PackageReference Include="OmniSharp.Abstractions" />
     <PackageReference Include="OmniSharp.Roslyn" />
+    <PackageReference Include="OmniSharp.Roslyn.CSharp" />
     <PackageReference Include="StreamJsonRpc" />
   </ItemGroup>
 

@@ -16,9 +16,6 @@ namespace OmniSharp.FastCodeNavPlugin
     [OmniSharpHandler(OmniSharpEndpoints.FindSymbols, LanguageNames.CSharp)]
     public class CodeSearchFindSymbolsService : IRequestHandler<FindSymbolsRequest, QuickFixResponse>
     {
-        private static readonly TimeSpan QueryCodeSearchTimeout = TimeSpan.FromSeconds(5);
-        private const int MaxCodeSearchResults = 200;
-
         private readonly OmniSharpWorkspace _workspace;
         private readonly ICodeSearchProvider _codeSearchServiceProvider;
         private readonly ILogger _logger;
@@ -34,6 +31,7 @@ namespace OmniSharp.FastCodeNavPlugin
             _logger = loggerFactory.CreateLogger<CodeSearchFindSymbolsService>();
         }
 
+        // Based on https://github.com/OmniSharp/omnisharp-roslyn/blob/cbfca2cccaf814f3c906a49c9321f0bc898fa0e6/src/OmniSharp.Roslyn.CSharp/Services/Navigation/FindSymbolsService.cs
         public async Task<QuickFixResponse> Handle(FindSymbolsRequest request = null)
         {
             if (_codeSearchServiceProvider.CodeSearchService == null)
@@ -50,7 +48,7 @@ namespace OmniSharp.FastCodeNavPlugin
             int maxItems = (request?.MaxItemsToReturn).GetValueOrDefault();
 
             Task<List<QuickFix>> queryCodeSearchTask = _codeSearchServiceProvider.CodeSearchService.QueryAsync(
-                request.Filter, Math.Min(maxItems, MaxCodeSearchResults), QueryCodeSearchTimeout, exactMatch: false, CodeSearchQueryType.FindDefinitions);
+                request.Filter, Math.Min(maxItems, Constants.MaxCodeSearchResults), Constants.QueryCodeSearchTimeout, exactMatch: false, CodeSearchQueryType.FindDefinitions);
 
             QuickFixResponse queryWorkspaceSymbols = await _workspace.CurrentSolution.FindSymbols(request?.Filter, ".csproj", maxItems);
 

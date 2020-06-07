@@ -5,7 +5,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using FastCodeNavPlugin.Common;
 using Microsoft.CodeAnalysis;
-using Microsoft.Extensions.Logging;
 using OmniSharp.Extensions;
 using OmniSharp.Mef;
 using OmniSharp.Models;
@@ -18,17 +17,14 @@ namespace OmniSharp.FastCodeNavPlugin
     {
         private readonly OmniSharpWorkspace _workspace;
         private readonly ICodeSearchProvider _codeSearchServiceProvider;
-        private readonly ILogger _logger;
 
         [ImportingConstructor]
         public CodeSearchFindSymbolsService(
             OmniSharpWorkspace workspace,
-            ILoggerFactory loggerFactory,
             ICodeSearchProvider codeSearchServiceProvider)
         {
             _workspace = workspace;
             _codeSearchServiceProvider = codeSearchServiceProvider;
-            _logger = loggerFactory.CreateLogger<CodeSearchFindSymbolsService>();
         }
 
         // Based on https://github.com/OmniSharp/omnisharp-roslyn/blob/cbfca2cccaf814f3c906a49c9321f0bc898fa0e6/src/OmniSharp.Roslyn.CSharp/Services/Navigation/FindSymbolsService.cs

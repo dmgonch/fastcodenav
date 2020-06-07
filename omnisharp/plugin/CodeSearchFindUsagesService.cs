@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Composition;
@@ -31,7 +30,6 @@ namespace OmniSharp.FastCodeNavPlugin
         }
 
         // Based on https://github.com/OmniSharp/omnisharp-roslyn/blob/cbfca2cccaf814f3c906a49c9321f0bc898fa0e6/src/OmniSharp.Roslyn.CSharp/Services/Navigation/FindUsagesService.cs
-        // The idea is 
         public async Task<QuickFixResponse> Handle(FindUsagesRequest request)
         {
             Document document = _workspace.GetDocument(request.FileName);

@@ -13,12 +13,12 @@
     ],
     "bugs": {
         "url": "https://github.com/dmgonch/fastcodenav/issues"
-      },
-      "repository": {
+    },
+    "repository": {
         "type": "git",
         "url": "https://github.com/dmgonch/fastcodenav.git"
-      },
-        "activationEvents": [
+    },
+    "activationEvents": [
         "onCommand:extension.enableFastCodeNavPlugin"
     ],
     "main": "./out/extension.js",

@@ -1,14 +1,14 @@
 {
-	"folders": [
-		{
-			"path": "."
-		},
-		{
-			"path": "extension"
-		},
-		{
-			"path": "omnisharp"
-		}
-	],
+    "folders": [
+        {
+            "path": "."
+        },
+        {
+            "path": "extension"
+        },
+        {
+            "path": "omnisharp"
+        }
+    ],
     "settings": {}
 }

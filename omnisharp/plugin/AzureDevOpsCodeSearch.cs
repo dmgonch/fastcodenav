@@ -42,8 +42,7 @@ namespace OmniSharp.FastCodeNavPlugin
                 return;
             }
 
-            string clientPath = Path.Combine(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location))), 
-                "AzDevOpsInteractiveClient", "net472", "AzDevOpsInteractiveClient.exe");
+            string clientPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "AzDevOpsInteractiveClient.exe");
 
             string pipeName = $"AzDevOpsClientPipe-{Process.GetCurrentProcess().Id}";
 

@@ -7,8 +7,8 @@
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <RepositoryRootDirectory>$(MSBuildThisFileDirectory.TrimEnd('\\'))\..\</RepositoryRootDirectory>
     <OutputPath>$([System.IO.Path]::GetFullPath('$(RepositoryRootDirectory)bin\$(Configuration)\$(MSBuildProjectName)'))\</OutputPath>
-    <ProjectDistribPath>$([System.IO.Path]::GetFullPath('$(RepositoryRootDirectory)bin\$(Configuration)\Distrib\$(MSBuildProjectName)'))\</ProjectDistribPath>
     <BaseIntermediateOutputPath>$([System.IO.Path]::GetFullPath('$(RepositoryRootDirectory)bin\obj\$(MSBuildProjectName)'))\</BaseIntermediateOutputPath>
+    <PublishDir>$([System.IO.Path]::GetFullPath('$(RepositoryRootDirectory)extension\out\$(Configuration)'))\</PublishDir>
   </PropertyGroup>
 
 </Project>

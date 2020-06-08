@@ -4,17 +4,40 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "build",
+            "label": "build (Debug)",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "/p:Configuration=Debug"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+           "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build (Release)",
             "command": "dotnet",
             "type": "process",
             "args": [
                 "build",
                 "/p:Configuration=Release"
             ],
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
+            "group": "build",
+           "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "publish (Release)",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "msbuild",
+                "/p:Configuration=Release",
+                "/t:publish"
+            ],
+            "group": "build",
            "problemMatcher": "$msCompile"
         }
     ]

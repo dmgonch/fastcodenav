@@ -3,7 +3,6 @@
   <PropertyGroup>
     <TargetFramework>net472</TargetFramework>
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <OutputPath>$(ProjectDistribPath)</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>

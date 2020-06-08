@@ -4,7 +4,6 @@
     <TargetFramework>net472</TargetFramework>
     <OutputType>Exe</OutputType>
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <OutputPath>$(ProjectDistribPath)</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>

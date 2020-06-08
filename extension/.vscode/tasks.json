@@ -15,6 +15,18 @@
                 "kind": "build",
                 "isDefault": true
             }
+        },
+        {
+            "label": "create VSIX",
+            "command": "vsce",
+            "type": "shell",
+            "args": [
+                "package",
+                "--out",
+                "${workspaceFolder}/out"
+            ],
+            "group": "build",
+            "problemMatcher": []
         }
     ]
 }

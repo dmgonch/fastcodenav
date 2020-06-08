@@ -2,6 +2,7 @@
     "name": "fastcodenav",
     "displayName": "fastcodenav",
     "description": "Fast Code Navigation for C# powered by Azure DevOps Code Search",
+    "publisher": "dmgonch",
     "version": "0.0.1",
     "license": "SEE LICENSE at the repo root",
     "author": "Dmitry Goncharenko",

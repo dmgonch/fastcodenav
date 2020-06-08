@@ -5,10 +5,10 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
-    <RepositoryRootDirectory>$(MSBuildThisFileDirectory.TrimEnd('\\'))\..\</RepositoryRootDirectory>
-    <OutputPath>$([System.IO.Path]::GetFullPath('$(RepositoryRootDirectory)bin\$(Configuration)\$(MSBuildProjectName)'))\</OutputPath>
-    <BaseIntermediateOutputPath>$([System.IO.Path]::GetFullPath('$(RepositoryRootDirectory)bin\obj\$(MSBuildProjectName)'))\</BaseIntermediateOutputPath>
-    <PublishDir>$([System.IO.Path]::GetFullPath('$(RepositoryRootDirectory)extension\out\$(Configuration)'))\</PublishDir>
+    <OmniSharpPluginRoot>$(MSBuildThisFileDirectory)</OmniSharpPluginRoot>
+    <OutputPath>$(MSBuildThisFileDirectory)\out\$(Configuration)\$(MSBuildProjectName)\</OutputPath>
+    <BaseIntermediateOutputPath>$(MSBuildThisFileDirectory)\out\obj\$(MSBuildProjectName)\</BaseIntermediateOutputPath>
+    <PublishDir>$(MSBuildThisFileDirectory)\..\extension\out\$(Configuration)\</PublishDir>
   </PropertyGroup>
 
 </Project>

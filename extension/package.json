@@ -1,7 +1,7 @@
 {
     "name": "fastcodenav",
-    "displayName": "fastcodenav",
-    "description": "Fast Code Navigation for C# powered by Azure DevOps Code Search",
+    "displayName": "Fast Code Navigation for C#",
+    "description": "Fast Code Navigation for C# powered by Azure DevOps Code Search [currently for Windows only]",
     "publisher": "dmgonch",
     "version": "0.0.1",
     "license": "SEE LICENSE at the repo root",
@@ -20,14 +20,19 @@
         "url": "https://github.com/dmgonch/fastcodenav.git"
     },
     "activationEvents": [
+        "onLanguage:csharp",
         "onCommand:extension.enableFastCodeNavPlugin"
+    ],
+    "keywords": [
+        "C#",
+        "Azure DevOps"
     ],
     "main": "./out/extension.js",
     "contributes": {
         "commands": [
             {
                 "command": "extension.enableFastCodeNavPlugin",
-                "title": "FastCodeNav: Enable C# plugin"
+                "title": "FastCodeNav: Enable plugin for C#"
             }
         ]
     },

@@ -27,18 +27,6 @@
             ],
             "group": "build",
            "problemMatcher": "$msCompile"
-        },
-        {
-            "label": "publish (Release)",
-            "command": "dotnet",
-            "type": "process",
-            "args": [
-                "msbuild",
-                "/p:Configuration=Release",
-                "/t:publish"
-            ],
-            "group": "build",
-           "problemMatcher": "$msCompile"
         }
     ]
 }

@@ -38,7 +38,7 @@ namespace OmniSharp.FastCodeNavPlugin
         {
             Document document = _workspace.GetDocument(request.FileName);
 
-            var quickFixes = new List<QuickFix>();
+            var workspaceResults = new List<QuickFix>();
             SourceText sourceText = null;
             int position = 0;
             ISymbol symbol = null;
@@ -65,17 +65,17 @@ namespace OmniSharp.FastCodeNavPlugin
                     locations.AddRange(definitionLocations);
                 }
 
-                quickFixes = locations.Distinct().Select(l => l.GetQuickFix(_workspace)).ToList();
+                workspaceResults = locations.Distinct().Select(l => l.GetQuickFix(_workspace)).ToList();
             }
 
-            List<QuickFix> codeSearchRefs = await QueryCodeSearchForSymbolRefsAsync(request, symbol, sourceText, position);
+            List<QuickFix> codeSearchResults = await QueryCodeSearchForSymbolRefsAsync(request, symbol, sourceText, position);
 
-            // Filter out symbols from files that are already loaded in the workspace because the standard handler will be providing those results
+            // Filter out results from files that are already loaded in the workspace because the standard handler will be providing those results
             // and they might be more accurate if the files were changed locally
-            HashSet<string> roslynRefFiles = new HashSet<string>(quickFixes.Select(f => f.FileName), PathComparer.Instance);
-            quickFixes.AddRange(codeSearchRefs.Where(r => !roslynRefFiles.Contains(r.FileName)));
+            HashSet<string> filesAlreadyInWorkspace = new HashSet<string>(workspaceResults.Select(f => f.FileName), PathComparer.Instance);
+            List<QuickFix> codeSearchOnlyResults = codeSearchResults.Where(codeSearchResult => !filesAlreadyInWorkspace.Contains(codeSearchResult.FileName)).ToList();
 
-            var response = new QuickFixResponse(quickFixes.Distinct()
+            var response = new QuickFixResponse(codeSearchOnlyResults.Distinct()
                                             .OrderBy(q => q.FileName)
                                             .ThenBy(q => q.Line)
                                             .ThenBy(q => q.Column));

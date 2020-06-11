@@ -134,6 +134,7 @@ namespace OmniSharp.FastCodeNavPlugin
                         results = new List<QuickFix>();
                         foreach (SearchResult searchResult in response.Results)
                         {
+                            _logger.LogTrace($"FastCodeNav: result for '{cacheKey}': ({searchResult.Line},{searchResult.Column},{searchResult.EndLine},{searchResult.EndColumn}) {searchResult.FileName} |{searchResult.Text}|");
                             results.Add(new QuickFix
                             {
                                 FileName = searchResult.FileName, 

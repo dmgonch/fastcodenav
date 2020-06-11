@@ -99,7 +99,7 @@ namespace AzDevOpsInteractiveClient
                 {
                     Stopwatch sw = Stopwatch.StartNew();
                     CodeSearchResponse response = await _searchClient.FetchCodeSearchResultsAsync(request, ct);
-                    _logger.LogInformation($"Response from Azure DevOps Code Search for filter '{request.SearchText}' completed in {sw.Elapsed.TotalSeconds:F2} seconds and contains {response.Results.Count()} result(s)");
+                    _logger.LogInformation($"Response from Azure DevOps Code Search for filter '{request.SearchText}' completed in {sw.Elapsed.TotalSeconds:F2} seconds and contains results from {response.Results.Count()} files");
 
                     if (response != null)
                     {

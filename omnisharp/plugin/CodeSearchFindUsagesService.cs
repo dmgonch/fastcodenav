@@ -7,6 +7,7 @@ using FastCodeNavPlugin.Common;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.FindSymbols;
 using Microsoft.CodeAnalysis.Text;
+using Microsoft.Extensions.Logging;
 using OmniSharp.Helpers;
 using OmniSharp.Mef;
 using OmniSharp.Models;
@@ -17,14 +18,17 @@ namespace OmniSharp.FastCodeNavPlugin
     [OmniSharpHandler(OmniSharpEndpoints.FindUsages, LanguageNames.CSharp)]
     public class CodeSearchFindUsagesService : IRequestHandler<FindUsagesRequest, QuickFixResponse>
     {
+        private readonly ILogger _logger;
         private readonly OmniSharpWorkspace _workspace;
         private readonly ICodeSearchProvider _codeSearchServiceProvider;
 
         [ImportingConstructor]
         public CodeSearchFindUsagesService(
+            ILoggerFactory loggerFactory,
             OmniSharpWorkspace workspace,
             ICodeSearchProvider codeSearchServiceProvider)
         {
+            _logger = loggerFactory.CreateLogger<CodeSearchFindUsagesService>();
             _workspace = workspace;
             _codeSearchServiceProvider = codeSearchServiceProvider;
         }
@@ -71,10 +75,12 @@ namespace OmniSharp.FastCodeNavPlugin
             HashSet<string> roslynRefFiles = new HashSet<string>(quickFixes.Select(f => f.FileName), PathComparer.Instance);
             quickFixes.AddRange(codeSearchRefs.Where(r => !roslynRefFiles.Contains(r.FileName)));
 
-            return new QuickFixResponse(quickFixes.Distinct()
+            var response = new QuickFixResponse(quickFixes.Distinct()
                                             .OrderBy(q => q.FileName)
                                             .ThenBy(q => q.Line)
                                             .ThenBy(q => q.Column));
+            _logger.LogDebug($"FastCodeNav: search for symbol in {request.FileName} at ({request.Line},{request.Column}) returned {response.QuickFixes.Count()} items");
+            return response;
         }
 
         private async Task<List<QuickFix>> QueryCodeSearchForSymbolRefsAsync(FindUsagesRequest request, ISymbol symbol,

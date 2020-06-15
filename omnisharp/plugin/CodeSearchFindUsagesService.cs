@@ -36,6 +36,11 @@ namespace OmniSharp.FastCodeNavPlugin
         // Based on https://github.com/OmniSharp/omnisharp-roslyn/blob/cbfca2cccaf814f3c906a49c9321f0bc898fa0e6/src/OmniSharp.Roslyn.CSharp/Services/Navigation/FindUsagesService.cs
         public async Task<QuickFixResponse> Handle(FindUsagesRequest request)
         {
+            if (_codeSearchServiceProvider?.CodeSearchService == null)
+            {
+                return null;
+            }
+
             Document document = _workspace.GetDocument(request.FileName);
 
             var workspaceResults = new List<QuickFix>();

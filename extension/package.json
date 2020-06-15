@@ -21,7 +21,7 @@
     },
     "activationEvents": [
         "onLanguage:csharp",
-        "onCommand:extension.enableFastCodeNavPlugin"
+        "onCommand:FastCodeNav.enablePlugin"
     ],
     "keywords": [
         "C#",
@@ -31,7 +31,7 @@
     "contributes": {
         "commands": [
             {
-                "command": "extension.enableFastCodeNavPlugin",
+                "command": "FastCodeNav.enablePlugin",
                 "title": "FastCodeNav: Enable plugin for C#"
             }
         ]
@@ -46,6 +46,10 @@
     "extensionDependencies": [
         "vscode.csharp"
     ],
+    "dependencies": {
+        "@types/json5": "^0.0.30",
+        "json5": "^2.1.3"
+    },
     "devDependencies": {
         "@types/glob": "^7.1.1",
         "@types/mocha": "^7.0.2",

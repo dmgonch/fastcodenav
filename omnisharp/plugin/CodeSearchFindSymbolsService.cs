@@ -30,7 +30,7 @@ namespace OmniSharp.FastCodeNavPlugin
         // Based on https://github.com/OmniSharp/omnisharp-roslyn/blob/cbfca2cccaf814f3c906a49c9321f0bc898fa0e6/src/OmniSharp.Roslyn.CSharp/Services/Navigation/FindSymbolsService.cs
         public async Task<QuickFixResponse> Handle(FindSymbolsRequest request = null)
         {
-            if (_codeSearchServiceProvider.CodeSearchService == null)
+            if (_codeSearchServiceProvider?.CodeSearchService == null)
             {
                 return null;
             }

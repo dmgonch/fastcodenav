@@ -55,10 +55,8 @@ namespace OmniSharp.FastCodeNavPlugin
                     $@"--ProjectName ""{_repoInfo.ProjectName}"" " +
                     $@"--RepoName ""{_repoInfo.RepoName}"" " +
                     $@"--RpcPipeName ""{pipeName}"" ",
-                UseShellExecute = true,
-                CreateNoWindow = false,
-                // RedirectStandardInput = true,
-                // RedirectStandardOutput = true
+                UseShellExecute = false,
+                CreateNoWindow = true,
             };
 
             _logger.LogDebug($"FastCodeNav: Launching {clientPath} with arguments '{_clientProcess.StartInfo.Arguments}'");

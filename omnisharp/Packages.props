@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  
+  <PropertyGroup>
+    <!--
+    To work around a recent breaking change in O#, stick with packages versions compatible with the latest officially released O# server
+    (get latest release at https://github.com/OmniSharp/omnisharp-vscode/releases and see omniSharp version in package.json as of that commit
+    i.e. https://github.com/OmniSharp/omnisharp-vscode/blob/master/package.json#L33).
+    The incompatibility is likely due to https://github.com/OmniSharp/omnisharp-roslyn/pull/1804 and causes the following error:
+    System.MissingMethodException: Method not found: 'System.Threading.Tasks.Task`1<OmniSharp.Models.QuickFixResponse> OmniSharp.Extensions.SolutionExtensions.FindSymbols(Microsoft.CodeAnalysis.Solution, System.String, System.String, Int32)  
+    Try removing NoWarn below in the next upgrade.
+    -->
+    <OmniSharpPackageVer>1.35.1</OmniSharpPackageVer>
+    <NoWarn>$(NoWarn);NU1603</NoWarn>
+    <VsServicesPackageVer>16.169.0-preview</VsServicesPackageVer>
+    <!-- Stay in sync with the version used by O#: https://github.com/OmniSharp/omnisharp-roslyn/blob/54d9230b66ba039e51371a598a9f9abafadc8c33/build/Packages.props#L46 -->
+    <MicrosoftExtensionsPackageVer>2.1.1</MicrosoftExtensionsPackageVer>
+  </PropertyGroup>
+  
+  <ItemGroup Label="Package Versions used by this repository">  
+    <PackageReference Update="CommandLineParser" Version="[2.8.0]" />
+    <PackageReference Update="OmniSharp.Abstractions" Version="[$(OmniSharpPackageVer)]" />
+    <PackageReference Update="OmniSharp.Roslyn" Version="[$(OmniSharpPackageVer)]" />
+    <PackageReference Update="OmniSharp.Roslyn.CSharp" Version="[$(OmniSharpPackageVer)]" />
+    <PackageReference Update="Microsoft.Extensions.Caching.Memory" Version="[$(MicrosoftExtensionsPackageVer)]" />
+    <PackageReference Update="Microsoft.Extensions.Hosting" Version="[$(MicrosoftExtensionsPackageVer)]" />
+    <PackageReference Update="Microsoft.Extensions.Logging" Version="[$(MicrosoftExtensionsPackageVer)]" />
+    <PackageReference Update="Microsoft.VisualStudio.Services.InteractiveClient" Version="[$(VsServicesPackageVer)]" />
+    <PackageReference Update="Microsoft.VisualStudio.Services.Search.Client" Version="[$(VsServicesPackageVer)]" />
+    <PackageReference Update="StreamJsonRpc" Version="2.4.48" />
+    <PackageReference Update="System.Threading.Tasks.Dataflow" Version="4.11.1" />
+  </ItemGroup>
+
+  <ItemGroup Label="Packages to add to all projects">
+    <GlobalPackageReference Include="SlnGen" Version="2.2.30" Condition=" '$(EnableSlnGen)' != 'false' " />
+  </ItemGroup>
+
+</Project>

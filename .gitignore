@@ -2,3 +2,8 @@ out
 node_modules
 .vscode-test/
 *.vsix
+[Oo]bj/
+[Bb]in/
+*.suo
+*.sln
+.vs/

@@ -1,0 +1,7 @@
+﻿<Project Sdk="Microsoft.Build.Traversal">
+  <ItemGroup>
+    <ProjectFile Include="AzDevOpsInteractiveClient\AzDevOpsInteractiveClient.csproj" />
+    <ProjectFile Include="common\common.csproj" />
+    <ProjectFile Include="plugin\FastCodeNavPlugin.csproj" />
+  </ItemGroup>
+</Project>

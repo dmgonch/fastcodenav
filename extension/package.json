@@ -4,7 +4,7 @@
     "description": "Fast Code Navigation for C# powered by Azure DevOps Code Search [currently for Windows only]",
     "publisher": "dmgonch",
     "version": "0.0.1",
-    "license": "SEE LICENSE at the repo root",
+    "license": "SEE LICENSE IN LICENSE",
     "author": "Dmitry Goncharenko",
     "engines": {
         "vscode": "^1.45.1"

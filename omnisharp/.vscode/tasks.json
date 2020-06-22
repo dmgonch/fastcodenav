@@ -11,11 +11,8 @@
                 "build",
                 "/p:Configuration=Debug"
             ],
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
-           "problemMatcher": "$msCompile"
+            "group": "build",
+            "problemMatcher": "$msCompile"
         },
         {
             "label": "build (Release)",
@@ -26,7 +23,7 @@
                 "/p:Configuration=Release"
             ],
             "group": "build",
-           "problemMatcher": "$msCompile"
+            "problemMatcher": "$msCompile"
         }
     ]
 }

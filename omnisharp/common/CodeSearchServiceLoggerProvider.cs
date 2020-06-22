@@ -5,7 +5,7 @@ namespace FastCodeNavPlugin.Common
 {
     public class CodeSearchServiceLoggerProvider : ILoggerProvider
     {
-        // Keep the names the same length
+        // Keep length the same for all names
         private static string[] LogLevelNames = new[] {"TRACE", "DEBUG", "INFO ", "WARN ", "ERROR", "CRIT ", "NONE "};
 
         public void Dispose()

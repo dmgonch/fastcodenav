@@ -10,6 +10,9 @@ using System.Diagnostics;
 
 namespace AzDevOpsInteractiveClient
 {
+    /// <summary>
+    /// JSON RPC service that executes Code Search requests against Azure DevOps Code Search service and uses interactive authentication that is only available on Windows. 
+    /// </summary>
     public class Program
     {
         private static  ILogger Logger;

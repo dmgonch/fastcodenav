@@ -195,7 +195,7 @@ namespace AzDevOpsInteractiveClient
                 foreach (Hit hit in contentHits.OrderBy(h => h.CharOffset))
                 {
                     // Hit.CharOffset is calculated based on end-of-lines of the file stored by the service which can be different from local file end-of-lines. 
-                    // Try guess what end-of-lines were used by the service and use the first match.
+                    // Try guessing what end-of-lines were used by the service and use the first match.
                     if (hit.CharOffset >= lineOffsetUnix && hit.CharOffset < lineOffsetUnix + line.Length)
                     {
                         if (ConsiderMatchCandidate(filePath, findReferences, searchFilter, exactMatch, hit, lineNumber, lineOffsetUnix, line, foundSymbols))

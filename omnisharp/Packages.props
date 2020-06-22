@@ -3,7 +3,7 @@
   
   <PropertyGroup>
     <!--
-    Stick with latest O# packages compatible with the latest officially released O# server
+    To work around a recent breaking change in O#, stick with packages versions compatible with the latest officially released O# server
     (get latest release at https://github.com/OmniSharp/omnisharp-vscode/releases and see omniSharp version in package.json as of that commit
     i.e. https://github.com/OmniSharp/omnisharp-vscode/blob/master/package.json#L33).
     The incompatibility is likely due to https://github.com/OmniSharp/omnisharp-roslyn/pull/1804 and causes the following error:
